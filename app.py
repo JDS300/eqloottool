@@ -42,7 +42,8 @@ def get_upgrades():
         if len(cols) < 5:
             continue
         name = cols[0].text.strip()
-        link = "https://www.raidloot.com" + cols[0].find("a")["href"]
+        link_tag = cols[0].find("a")
+        link = "https://www.raidloot.com" + link_tag["href"] if link_tag else ""
         ac_val = cols[1].text.strip()
         hp_val = cols[2].text.strip()
         heroics = cols[4].text.strip()
