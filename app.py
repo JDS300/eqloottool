@@ -25,8 +25,8 @@ def get_upgrades():
         try:
             page.goto(url, timeout=60000)
             page.wait_for_timeout(3000)  # wait 3 seconds for JS content
-            page.wait_for_selector("table.table", timeout=20000)
-            html = page.inner_html("table.table")
+            page.wait_for_selector("table.items.floating-header", timeout=20000)
+            html = page.inner_html("table.items.floating-header")
         except Exception as e:
             page.screenshot(path="error.png")
             browser.close()
