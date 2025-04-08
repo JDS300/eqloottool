@@ -1,7 +1,6 @@
 services:
   - type: web
-    name: raidloot-api
-    env: python
-    plan: free
-    buildCommand: ""
-    startCommand: "python raidloot_api_render.py"
+    name: raidloot-playwright
+    env: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
