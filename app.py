@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from playwright.sync_api import sync_playwright
+from bs4 import BeautifulSoup
+import os
 
 app = Flask(__name__)
 
@@ -12,7 +14,7 @@ def get_upgrades():
 
     url = f"https://www.raidloot.com/items?class={eq_class}&slot={slot}&ac={ac}&hp={hp}"
 
-       with sync_playwright() as p:
+    with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
@@ -31,8 +33,7 @@ def get_upgrades():
             return jsonify({"error": f"Timeout or error: {str(e)}"})
 
         browser.close()
-       
-    from bs4 import BeautifulSoup
+
     soup = BeautifulSoup(html, "html.parser")
     items = []
 
@@ -60,7 +61,6 @@ def get_upgrades():
 def index():
     return "Raidloot Scraper with Playwright is running!"
 
-import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
