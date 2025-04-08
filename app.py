@@ -24,7 +24,7 @@ def get_upgrades():
 
         try:
             page.goto(url, timeout=60000)
-            page.wait_for_timeout(3000)  # wait 3 seconds for JS content
+            page.wait_for_timeout(3000)
             page.wait_for_selector("table.items.floating-header", timeout=20000)
             html = page.inner_html("table.items.floating-header")
         except Exception as e:
@@ -39,14 +39,15 @@ def get_upgrades():
 
     for row in soup.find_all("tr")[1:]:
         cols = row.find_all("td")
-        if len(cols) < 5:
+        if len(cols) < 4:
             continue
-        name = cols[0].text.strip()
+
         link_tag = cols[0].find("a")
+        name = link_tag.text.strip() if link_tag else cols[0].text.strip()
         link = "https://www.raidloot.com" + link_tag["href"] if link_tag else ""
         ac_val = cols[1].text.strip()
         hp_val = cols[2].text.strip()
-        heroics = cols[4].text.strip()
+        heroics = cols[3].text.strip()
 
         items.append({
             "name": name,
