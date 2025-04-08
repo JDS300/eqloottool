@@ -12,22 +12,25 @@ def get_upgrades():
 
     url = f"https://www.raidloot.com/items?class={eq_class}&slot={slot}&ac={ac}&hp={hp}"
 
-   with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
-    context = browser.new_context(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)", viewport={"width": 1280, "height": 720})
-    page = context.new_page()
+       with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            viewport={"width": 1280, "height": 720}
+        )
+        page = context.new_page()
 
-    try:
-        page.goto(url, timeout=60000)
-        page.wait_for_timeout(3000)  # wait for 3 seconds to allow JS to load
-        page.wait_for_selector("table.table", timeout=20000)
-        html = page.inner_html("table.table")
-    except Exception as e:
-        page.screenshot(path="error.png")  # optional: save for debugging
+        try:
+            page.goto(url, timeout=60000)
+            page.wait_for_timeout(3000)  # wait 3 seconds for JS content
+            page.wait_for_selector("table.table", timeout=20000)
+            html = page.inner_html("table.table")
+        except Exception as e:
+            page.screenshot(path="error.png")
+            browser.close()
+            return jsonify({"error": f"Timeout or error: {str(e)}"})
+
         browser.close()
-        return jsonify({"error": f"Timeout or error: {str(e)}"})
-    
-    browser.close()
        
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(html, "html.parser")
