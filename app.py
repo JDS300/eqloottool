@@ -39,15 +39,15 @@ def get_upgrades():
 
     for row in soup.find_all("tr")[1:]:
         cols = row.find_all("td")
-        if len(cols) < 4:
+        if len(cols) < 5:
             continue
 
         link_tag = cols[0].find("a")
         name = link_tag.text.strip() if link_tag else cols[0].text.strip()
         link = "https://www.raidloot.com" + link_tag["href"] if link_tag else ""
-        ac_val = cols[1].text.strip()
-        hp_val = cols[2].text.strip()
-        heroics = cols[3].text.strip()
+        ac_val = cols[2].text.strip()
+        hp_val = cols[3].text.strip()
+        heroics = cols[4].text.strip()
 
         items.append({
             "name": name,
