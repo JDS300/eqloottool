@@ -39,7 +39,7 @@ def get_upgrades():
 
     for row in soup.find_all("tr")[1:]:
         cols = row.find_all("td")
-        if len(cols) < 5:
+        if len(cols) < 10:
             continue
 
         link_tag = cols[0].find("a")
@@ -47,14 +47,20 @@ def get_upgrades():
         link = "https://www.raidloot.com" + link_tag["href"] if link_tag else ""
         ac_val = cols[2].text.strip()
         hp_val = cols[3].text.strip()
-        heroics = cols[4].text.strip()
+        atk_val = cols[4].text.strip()
+        hsta_val = cols[5].text.strip()
+        hstr_val = cols[8].text.strip()
+        source = cols[9].text.strip()
 
         items.append({
             "name": name,
             "link": link,
             "ac": ac_val,
             "hp": hp_val,
-            "heroics": heroics
+            "atk": atk_val,
+            "hsta": hsta_val,
+            "hstr": hstr_val,
+            "source": source
         })
 
     return jsonify(items)
