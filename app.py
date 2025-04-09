@@ -64,15 +64,7 @@ def get_upgrades():
         items.append(item)
 
     return jsonify(items)
-
-@app.route("/")
-def index():
-    return "Raidloot Scraper with Playwright is running!"
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
-
+    
 @app.route("/search", methods=["GET"])
 def search_item_by_name():
     item_name = request.args.get("name", "")
@@ -130,4 +122,12 @@ def search_item_by_name():
         items.append(item)
 
     return jsonify(items[:3])  # return top 3 matches
+
+@app.route("/")
+def index():
+    return "Raidloot Scraper with Playwright is running!"
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
 
