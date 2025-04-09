@@ -49,16 +49,16 @@ def get_upgrades():
         item = {
             "name": name,
             "link": link,
-            "type": cols[1].text.strip(),
-            "score": cols[2].text.strip(),
-            "ac": cols[3].text.strip(),
-            "hp": cols[4].text.strip(),
-            "atk": cols[5].text.strip(),
-            "hsta": cols[6].text.strip(),
-            "hagi": cols[7].text.strip(),
-            "hdex": cols[8].text.strip(),
-            "hstr": cols[9].text.strip(),
-            "source": cols[10].text.strip()
+            "type": cols[1].text.strip(),      # Armor Type
+            "score": cols[2].text.strip(),     # Score
+            "ac": cols[3].text.strip(),        # AC
+            "hp": cols[4].text.strip(),        # HP
+            "atk": cols[5].text.strip(),       # ATK
+            "hsta": cols[6].text.strip(),      # HSta
+            "hagi": cols[7].text.strip(),      # HAgi
+            "hdex": cols[8].text.strip(),      # HDex
+            "hstr": cols[9].text.strip(),      # HStr
+            "source": cols[10].text.strip()    # Expansion Source
         }
 
         items.append(item)
