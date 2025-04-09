@@ -42,23 +42,23 @@ def get_upgrades():
         if len(cols) < 12:
             continue
 
-        link_tag = cols[0].find("a")
-        name = link_tag.text.strip() if link_tag else cols[0].text.strip()
+        link_tag = cols[1].find("a")
+        name = link_tag.text.strip() if link_tag else cols[1].text.strip()
         link = "https://www.raidloot.com" + link_tag["href"] if link_tag else ""
 
         item = {
             "name": name,
             "link": link,
-            "type": cols[1].text.strip(),      # Armor Type
-            "score": cols[2].text.strip(),     # Score
-            "ac": cols[3].text.strip(),        # AC
-            "hp": cols[4].text.strip(),        # HP
-            "atk": cols[5].text.strip(),       # ATK
-            "hsta": cols[6].text.strip(),      # HSta
-            "hagi": cols[7].text.strip(),      # HAgi
-            "hdex": cols[8].text.strip(),      # HDex
-            "hstr": cols[9].text.strip(),      # HStr
-            "source": cols[10].text.strip()    # Expansion Source
+            "type": cols[2].text.strip(),
+            "score": cols[3].text.strip(),
+            "ac": cols[4].text.strip(),
+            "hp": cols[6].text.strip(),
+            "atk": cols[5].text.strip(),
+            "hsta": cols[7].text.strip(),
+            "hagi": cols[8].text.strip(),
+            "hdex": cols[9].text.strip(),
+            "hstr": cols[10].text.strip(),
+            "source": cols[11].text.strip()
         }
 
         items.append(item)
